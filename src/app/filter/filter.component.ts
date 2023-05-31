@@ -26,7 +26,16 @@ export class FilterComponent {
         this.dataSource.paginator=this.panginator;
         this.dataSource.filterPredicate =
         (data:any, filter:string) =>{
-          const source = this.aktualisKereses ? data[this.aktualisKereses] : JSON.stringify(data);
+          // let source2 = this.aktualisKereses ? data[this.aktualisKereses]  : JSON.stringify(data);
+          let source="";
+          
+          if (this.aktualisKereses) source=String(data[this.aktualisKereses])
+          else {
+            this.displayedColumns.forEach(element => {
+                source+=String(data[element]);
+              });
+          }        
+          console.log("Source:",source);
           return source.toLowerCase().includes(filter);
         }
       }
@@ -34,12 +43,12 @@ export class FilterComponent {
   }
 
   applyFilter(event:any){
-    const fv= event;
+    const fv= (event as string).toLowerCase();
     // const fv= event.target.value.toLowerCase();
-    console.log("fv",fv);
+    //console.log("fv",fv);
     if (this.dataSource) {
           this.dataSource.filter=fv;
-          console.log("fv",fv);
+          //console.log("fv",fv);
     }
 
   }

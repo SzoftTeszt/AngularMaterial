@@ -1,1 +1,29 @@
-<p>animal-editor works!</p>
+<mat-card *ngIf="allat">
+    <mat-card-content>
+        <mat-card-header>
+            Állat beállítása
+        </mat-card-header>
+        <form (ngSubmit)="onSubmit()">
+
+        <mat-form-field class="fill-width" *ngFor="let oszlop of displayedColumns">
+            <mat-label>{{oszlop}}</mat-label>
+            <input matInput [name]="oszlop" [(ngModel)]="allat[oszlop]">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Érkezés</mat-label>
+            <input matInput [matDatepicker]="picker"
+            [(ngModel)]="allat['erkezes']"
+            name="erkezes">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <button  mat-button color="primary">
+            <mat-icon>save</mat-icon>
+            Save
+        </button>
+        </form>  
+    </mat-card-content>
+  </mat-card>
